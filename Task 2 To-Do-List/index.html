@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website To-Do List</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TO DO LIST</h1>
+        <table class="task-list">
+            <tr class="task-heading">
+                <th>TASK</th>
+                <th>PRIORITY</th>
+                <th>DEADLINE</th>
+                <th>ACTION</th>
+            </tr>
+            <tr class="task">
+                <td>
+                    <span class="task-title">Create Homepage</span>
+                </td>
+                <td>
+                    <span class="task-priority">High</span>
+                </td>
+                <td>
+                    <span class="task-deadline">2023-09-30</span>
+                </td>
+                <td>
+                    <button class="delete-button">Delete</button>
+                </td>
+            </tr>
+            <tr class="task">
+                <td>
+                    <span class="task-title"> Design Contact Page</span>
+                </td>
+                <td>
+                    <span class="task-priority">Medium</span>
+                </td>
+                <td>
+                    <span class="task-deadline">2023-10-15</span>
+                </td>
+                <td>
+                    <button class="delete-button">Delete</button>
+                </td>
+            </tr>
+            <tr class="task">
+                <td>
+                    <span class="task-title">Implement Blog Section</span>
+                </td>
+                <td>
+                    <span class="task-priority">Low</span>
+                </td>
+                <td>
+                    <span class="task-deadline">2023-11-10</span>
+                </td>
+                <td>
+                    <button class="delete-button">Delete</button>
+                </td>
+            </tr>
+        </table>
+        <div class="add">
+            <input type="text" id="newTaskTitle" placeholder="New Task Title">
+            <input type="text" id="newTaskPriority" placeholder="Priority">
+            <input type="text" id="newTaskDeadline" placeholder="Deadline">
+            <button id="addTaskButton">Add Task</button>
+        </div>
+    </div>
+
+    <script>
+        const taskList = document.querySelector('.task-list');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const newTaskTitle = document.getElementById('newTaskTitle');
+        const newTaskPriority = document.getElementById('newTaskPriority');
+        const newTaskDeadline = document.getElementById('newTaskDeadline');
+
+        function createTaskRow(title, priority, deadline) {
+            const newRow = document.createElement('tr');
+            newRow.classList.add('task');
+
+            const taskTitleCell = document.createElement('td');
+            taskTitleCell.innerHTML = `<span class="task-title">${title}</span>`;
+
+            const taskPriorityCell = document.createElement('td');
+            taskPriorityCell.innerHTML = `<span class="task-priority">${priority}</span>`;
+
+            const taskDeadlineCell = document.createElement('td');
+            taskDeadlineCell.innerHTML = `<span class="task-deadline">${deadline}</span>`;
+
+            const deleteButtonCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function () {
+                newRow.remove();
+            });
+            deleteButtonCell.appendChild(deleteButton);
+
+            newRow.appendChild(taskTitleCell);
+            newRow.appendChild(taskPriorityCell);
+            newRow.appendChild(taskDeadlineCell);
+            newRow.appendChild(deleteButtonCell);
+
+            taskList.appendChild(newRow);
+        }
+
+        addTaskButton.addEventListener('click', function () {
+            const title = newTaskTitle.value;
+            const priority = newTaskPriority.value;
+            const deadline = newTaskDeadline.value;
+
+            if (title && priority && deadline) {
+                createTaskRow(title, priority, deadline);
+                newTaskTitle.value = '';
+                newTaskPriority.value = '';
+                newTaskDeadline.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
